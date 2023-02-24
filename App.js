@@ -1,47 +1,50 @@
-import React from "react";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, SafeAreaView, Button, Alert } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, View, FlatList } from "react-native";
+import Header from "./components/Header";
+import Form from "./components/Form";
+import List from "./components/List";
 
 export default function App() {
-  const handleButton = () => console.log("Button clicked");
+  const [list, setList] = useState([
+    { key: "0", text: "todo one" },
+    { key: "1", text: "todo two" },
+    { key: "2", text: "todo three" },
+    { key: "3", text: "todo four" },
+  ]);
 
-  const handleButtonPress = () =>
-    Alert.alert("PushMessage", "Are you ready?", [
-      { text: "Yeah" },
-      { text: "No" },
-    ]);
+  const addHandler = (text) => {
+    setList((list) => {
+      return [
+        { key: Math.random().toString(36).substring(7), text: text },
+        ...list,
+      ];
+    });
+  };
+
+  const deleteHandler = (key) => {
+    setList((list) => {
+      return list.filter((list) => list.key != key);
+    });
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Hello {"\n"}motherfuckers!!!</Text>
-      <Text numberOfLines={1}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. {"\n"}Lorem
-        ipsum dolor sit amet consectetur adipisicing elit.
-      </Text>
-      <Button title="Press" color="red" onPress={handleButton} />
-      <Button
-        title="Press again dude"
-        color="green"
-        onPress={handleButtonPress}
-      />
-
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <View style={styles.container}>
+      <Header />
+      <Form addHandler={addHandler} />
+      <View>
+        <FlatList
+          data={list}
+          renderItem={({ item }) => (
+            <List elem={item} deleteHandler={deleteHandler} />
+          )}
+        />
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    // justifyContent: "center",
+    width: "100%",
   },
-  title: {
-    color: "blue",
-    fontSize: "30px",
-  },
-  // button: {
-  //   width: "200px",
-  // },
 });
