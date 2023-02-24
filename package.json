@@ -1,24 +1,28 @@
 {
   "name": "react-native-0",
+  "homepage": "http://signorpao.github.io/react-native-0",
   "version": "1.0.0",
   "main": "entry.js",
   "scripts": {
     "start": "expo start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/webpack-config": "^0.17.2",
     "expo": "~47.0.12",
     "expo-status-bar": "~1.4.2",
     "react": "18.1.0",
-    "react-native": "0.70.5",
-    "react-native-web": "~0.18.9",
     "react-dom": "18.1.0",
-    "@expo/webpack-config": "^0.17.2"
+    "react-native": "0.70.5",
+    "react-native-web": "~0.18.9"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "gh-pages": "^5.0.0"
   },
   "private": true
 }
